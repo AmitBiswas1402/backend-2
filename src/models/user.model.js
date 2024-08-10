@@ -57,7 +57,7 @@ userSchema.pre("save", async function(next) {
         return next()
     }
 
-    this.password = brcypt.hast(thus.password, 10)
+    this.password = await brcypt.hash(this.password, 10)
     next()
 })
 
