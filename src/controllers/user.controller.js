@@ -77,14 +77,8 @@ const registerUser = asyncHandler(async(req, res) => {
     // create user object - entry in db
     const user = await User.create({
         fullName,
-        avatar: {
-            public_id: avatar.public_id,
-            url: avatar.secure_url
-        },
-        coverImage: {
-            public_id: coverImage?.public_id || "",
-            url: coverImage?.secure_url || ""
-        },
+        avatar: avatar.url,
+        coverImage: coverImage?.url || "",
         email,
         password,
         username: username.toLowerCase()
@@ -181,7 +175,8 @@ const logoutUser = asyncHandler(async(req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "None"
     }
 
     return res
